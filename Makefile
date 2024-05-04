@@ -3,40 +3,72 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohosnedl <ohosnedl@student.42prague.com    +#+  +:+       +#+         #
+#    By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:40:56 by ohosnedl          #+#    #+#              #
-#    Updated: 2024/05/01 17:57:34 by ohosnedl         ###   ########.fr        #
+#    Updated: 2024/05/04 13:04:57 by daraz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= cub3d
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./includes/MLX42
+NAME	= cub3D
+CC		= gcc
+CFLAGS	= -Werror -Wextra -Wall -g3
 
-HEADERS	:= -I ./includes -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -L./includes/libft -lft -L./includes/ft_printf -lftprintf
-SRCS	:= $(shell find ./srcs -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+# Minilibx
+MLX_PATH	= ./includes/minilibx/
+MLX_NAME	= libmlx.a
+MLX			= $(MLX_PATH)$(MLX_NAME)
 
-all: libmlx $(NAME)
+# Libft
+LIBFT_PATH	= ./includes/libft/
+LIBFT_NAME	= libft.a
+LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+# Sources
+SRC_PATH = ./srcs/
+SRC		= 	main.c \
+			parse/init.c \
+			close/exit.c
+SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+# Objects
+OBJ_PATH	= ./objects/
+OBJ			= $(SRC:.c=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+
+# Includes
+INC			=	-I ./includes/\
+				-I ./includes/libft/\
+				-I ./includes/minilibx/
+
+all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/parse
+	mkdir -p $(OBJ_PATH)/close
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+
+$(LIBFT):
+	make -sC $(LIBFT_PATH)
+
+$(MLX):
+	make -sC $(MLX_PATH)
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJ_PATH)
+	make -C $(LIBFT_PATH) clean
+	make -C $(MLX_PATH) clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
+	make -C $(LIBFT_PATH) fclean
+	
+re: fclean all
 
-re: clean all
-
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all re clean fclean bonus

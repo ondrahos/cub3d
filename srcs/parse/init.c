@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 17:53:12 by ohosnedl          #+#    #+#             */
-/*   Updated: 2024/05/04 12:55:53 by daraz            ###   ########.fr       */
+/*   Created: 2024/05/04 10:43:05 by daraz             #+#    #+#             */
+/*   Updated: 2024/05/04 11:35:40 by daraz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	main(int ac, char **av)
+void	init_mlx(t_game *game)
 {
-	t_game game;
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		close_exit(game, print_error("mlx", "Fail to start mlx", 1));
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+	if (!game->win)
+		close_exit(game, print_error("mlx", "Fail to create mlx window", 1));
+	return ;
+}
 
-	//if ac !=2
-	init_data(&game);
-	//parse args
-	init_mlx(&game);
-	mlx_loop(game.mlx);
-	(void)ac;
-	(void)av;
-	return (0);
+void	init_data(t_game *game)
+{
+	game->mlx = NULL;
+	game->win = NULL;
+	game->win_height = WIN_HEIGHT;
+	game->win_width = WIN_WIDTH;
 }

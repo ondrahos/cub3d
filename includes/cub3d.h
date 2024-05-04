@@ -6,7 +6,7 @@
 /*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:12:05 by ohosnedl          #+#    #+#             */
-/*   Updated: 2024/05/04 16:59:17 by daraz            ###   ########.fr       */
+/*   Updated: 2024/05/04 17:16:20 by daraz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ enum e_status
 	SUCC = 0,
 	FAIL = 1,
 	ERR = 2,
-	BREAK = 3,
-	CONTINUE = 4
 };
 
 typedef struct s_game

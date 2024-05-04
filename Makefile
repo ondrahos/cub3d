@@ -6,7 +6,7 @@
 #    By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:40:56 by ohosnedl          #+#    #+#              #
-#    Updated: 2024/05/04 13:04:57 by daraz            ###   ########.fr        #
+#    Updated: 2024/05/04 16:58:16 by daraz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 SRC_PATH = ./srcs/
 SRC		= 	main.c \
 			parse/init.c \
+			parse/check_argument.c \
 			close/exit.c
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 

@@ -6,7 +6,7 @@
 #    By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:40:56 by ohosnedl          #+#    #+#              #
-#    Updated: 2024/05/04 16:58:16 by daraz            ###   ########.fr        #
+#    Updated: 2024/05/18 13:10:43 by daraz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,16 @@ SRC_PATH = ./srcs/
 SRC		= 	main.c \
 			parse/init.c \
 			parse/check_argument.c \
-			close/exit.c
+			parse/parse_map_file.c \
+			parse/get_data_from_map.c \
+			parse/get_color.c \
+			parse/create_map.c \
+			parse/utils_parse.c \
+			parse/check_map1.c \
+			parse/check_map2.c \
+			parse/check_textures.c \
+			close/exit.c \
+			close/free.c
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

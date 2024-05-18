@@ -37,7 +37,7 @@ int	print_error(char *detail, char *str, int code)
 int main(void) {
     char* detail = "MLX(cokoli)";
     int code = 1;
-    char* str = "Test color success";
+    char* str = "Test color SUCC";
 
     print_error(detail, str, code);
 

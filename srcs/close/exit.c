@@ -6,7 +6,7 @@
 /*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:55:30 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/04 11:32:58 by daraz            ###   ########.fr       */
+/*   Updated: 2024/05/18 13:00:29 by daraz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	close_exit(t_game *game, int code)
 		mlx_loop_end(game->mlx);
 		free(game->mlx);
 	}
-	//free_data(game);
+	free_game(game);
 	exit(code);
 }
 
@@ -41,6 +41,16 @@ int	print_error(char *detail, char *str, int code)
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(str, 2);
 	}
+	ft_putstr_fd("\n" RESET, 2);
+	return (code);
+}
+
+int	print_error_nbr(int detail, char *str, int code)
+{
+	ft_putstr_fd(RED "cub3D: Error: ", 2);
+	ft_putnbr_fd(detail, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n" RESET, 2);
 	return (code);
 }

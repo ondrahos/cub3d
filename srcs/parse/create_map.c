@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:37:05 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/14 12:03:28 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/19 19:22:44 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static int	count_map_lines(t_game *game, char **file, int i)
 {
@@ -49,7 +49,7 @@ static int	fill_map(t_map *map, char **map_tab, int index)
 		{
 			map_tab[i][j] = map->file[index][j];
 			j++;
-		}	
+		}
 		while (j < map->width)
 			map_tab[i][j++] = '\0';
 		i++;
@@ -74,20 +74,21 @@ static void	convert_walls(t_game *game)
 {
 	int	i;
 	int	j;
+	int	max_width;
 
 	i = 0;
+	max_width = game->map.width;
 	while (game->separate_map[i])
 	{
 		j = 0;
-		while (game->separate_map[i][j] == ' ' || game->separate_map[i][j] == '\t'
-		|| game->separate_map[i][j] == '\r'
-		|| game->separate_map[i][j] == '\v' || game->separate_map[i][j] == '\f')
-			j++;
-		while (game->separate_map[i][++j])
+		while (j < max_width)
 		{
 			if (game->separate_map[i][j] == ' '
-				&& j != game->separate_map[i][ft_strlen(game->separate_map[i]) - 1])
+			|| game->separate_map[i][j] == '\t'
+			|| game->separate_map[i][j] == '\v'
+			|| game->separate_map[i][j] == '\f')
 				game->separate_map[i][j] = '1';
+			j++;
 		}
 		i++;
 	}

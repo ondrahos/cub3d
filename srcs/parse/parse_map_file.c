@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 10:45:54 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/14 16:23:42 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 18:48:11 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static int	count_line(char *path)
 {

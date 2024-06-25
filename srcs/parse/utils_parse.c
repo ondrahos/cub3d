@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:38:23 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/18 12:43:04 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 18:48:17 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 size_t	get_biggest_width(t_map *map, int i)
 {

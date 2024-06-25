@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_data_from_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 12:47:09 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/18 13:27:14 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 20:31:49 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static char	*get_texture_path(char *line, int j)
 {
@@ -69,13 +69,13 @@ static int	get_data(t_game *game, char **map, int i, int j)
 			if (get_direction(&game->texdata, map[i], j) == ERR)
 				return (print_error(game->map.path, "Invalid textures", FAIL));
 			return (BREAK);
-		}	
+		}
 		else
 		{
 			if (get_color(game, &game->texdata, map[i], j) == ERR)
 				return (FAIL);
 			return (BREAK);
-		}	
+		}
 	}
 	else if (ft_isdigit(map[i][j]))
 	{
@@ -99,9 +99,8 @@ int	get_data_from_map(t_game *game, char **map)
 		while (map[i][j])
 		{
 			ret = get_data(game, map, i, j);
-			if (ret == BREAK) {
+			if (ret == BREAK)
 				break ;
-			}
 			else if (ret == FAIL)
 				return (FAIL);
 			else if (ret == SUCC)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 12:48:14 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/18 13:09:22 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 20:31:22 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static int	check_valid_rgb(int *rgb)
 {
@@ -20,7 +20,9 @@ static int	check_valid_rgb(int *rgb)
 	while (i < 3)
 	{
 		if (rgb[i] < 0 || rgb[i] > 255)
-			return (print_error_nbr(rgb[i], "Invalid RGB value. Provide value between 0 and 255", FAIL));
+			return (print_error_nbr(rgb[i],
+					"Invalid RGB value. Provide value between 0 and 255",
+					FAIL));
 		i++;
 	}
 	return (SUCC);
@@ -39,45 +41,6 @@ static unsigned long	convert_rgb_to_hex(int *rgb_tab)
 	result = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 	return (result);
 }
-
-/* 
-chat GPT zkratka na prevod RGB do HEX
-r = 17 (0x11 in hexadecimal)
-g = 38 (0x26 in hexadecimal)
-b = 64 (0x40 in hexadecimal)
-
-Binary representation:
-r = 00010001
-g = 00100110
-b = 01000000
-
-Now, let's apply the bitwise AND operation with 0xff (which is 11111111 in binary) to extract the least significant 8 bits:
-
-r & 0xff = 00010001
-g & 0xff = 00100110
-b & 0xff = 01000000
-
-Now, let's left-shift each component to its appropriate position in the final hexadecimal color code:
-
-r shifted by 16 bits: 00010001 << 16 = 000100010000000000000000 (in binary)
-g shifted by 8 bits: 00100110 << 8 = 000000000010011000000000 (in binary)
-b: 01000000 (no shift)
-
-Now, let's combine these values using bitwise OR:
-
-000100010000000000000000 (r)
-000000000010011000000000 (g)
-000000000000000010000000 (b)
---------------------------
-000100010010011010000000 (in binary)
-
-Finally, let's convert this binary number to hexadecimal:
-
-0001 0001 0010 0110 1000 0000 (grouped for readability)
-0x112680 (in hexadecimal)
-
-So, the resulting hexadecimal color code is 0x112680.
- */
 
 int	check_textures(t_game *game, t_texdata *textures)
 {

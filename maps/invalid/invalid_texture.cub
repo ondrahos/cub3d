@@ -1,7 +1,7 @@
-NO textures/brick.xpm
-SO textures/fire.xpm
+NO textures/north.png
+SO textures/south.png
 WE textures/i
-EA textures/tile.xpm
+EA textures/east.png
 
 F 220,100,0
 C 225,30,0

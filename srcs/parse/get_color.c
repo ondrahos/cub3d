@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 13:26:04 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/16 15:15:58 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 20:30:13 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static bool	not_digit(char *str)
 {
@@ -74,20 +74,24 @@ static int	*set_rgb_colors(char *line)
 int	get_color(t_game *game, t_texdata *textures, char *line, int j)
 {
 	if (line[j + 1] && ft_isprint(line[j + 1]))
-		return (print_error(game->map.path, "Invalid floor/ceiling RGB colors", ERR));
+		return (print_error(game->map.path,
+				"Invalid floor/ceiling RGB colors", ERR));
 	if (!textures->ceiling && line[j] == 'C')
 	{
 		textures->ceiling = set_rgb_colors(line + j + 1);
 		if (textures->ceiling == 0)
-			return (print_error(game->map.path, "Invalid ceiling RGB color", ERR));
+			return (print_error(game->map.path,
+					"Invalid ceiling RGB color", ERR));
 	}
 	else if (!textures->floor && line[j] == 'F')
 	{
 		textures->floor = set_rgb_colors(line + j + 1);
 		if (textures->floor == 0)
-			return (print_error(game->map.path, "Invalid floor RGB color", ERR));
+			return (print_error(game->map.path,
+					"Invalid floor RGB color", ERR));
 	}
 	else
-		return (print_error(game->map.path, "Invalid floor/ceiling RGB colors", ERR));
+		return (print_error(game->map.path,
+				"Invalid floor/ceiling RGB colors", ERR));
 	return (SUCC);
 }

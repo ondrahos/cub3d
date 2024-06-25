@@ -3,82 +3,40 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+         #
+#    By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 17:40:56 by ohosnedl          #+#    #+#              #
-#    Updated: 2024/05/18 13:10:43 by daraz            ###   ########.fr        #
+#    Updated: 2024/06/06 18:52:25 by ohosnedl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
-CC		= gcc
-CFLAGS	= -Werror -Wextra -Wall -g3
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+LIBMLX	:= ./includes/MLX42
 
-# Minilibx
-MLX_PATH	= ./includes/minilibx/
-MLX_NAME	= libmlx.a
-MLX			= $(MLX_PATH)$(MLX_NAME)
+HEADERS	:= -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -L./includes/libft -lft
+SRCS	:= $(shell find ./srcs -iname "*.c")
+OBJS	:= ${SRCS:.c=.o}
 
-# Libft
-LIBFT_PATH	= ./includes/libft/
-LIBFT_NAME	= libft.a
-LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
+all: libmlx $(NAME)
 
-# Sources
-SRC_PATH = ./srcs/
-SRC		= 	main.c \
-			parse/init.c \
-			parse/check_argument.c \
-			parse/parse_map_file.c \
-			parse/get_data_from_map.c \
-			parse/get_color.c \
-			parse/create_map.c \
-			parse/utils_parse.c \
-			parse/check_map1.c \
-			parse/check_map2.c \
-			parse/check_textures.c \
-			close/exit.c \
-			close/free.c
-SRCS	= $(addprefix $(SRC_PATH), $(SRC))
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-# Objects
-OBJ_PATH	= ./objects/
-OBJ			= $(SRC:.c=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
-
-# Includes
-INC			=	-I ./includes/\
-				-I ./includes/libft/\
-				-I ./includes/minilibx/
-
-all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
-
-$(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
-	mkdir -p $(OBJ_PATH)/parse
-	mkdir -p $(OBJ_PATH)/close
-
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
-
-$(LIBFT):
-	make -sC $(LIBFT_PATH)
-
-$(MLX):
-	make -sC $(MLX_PATH)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	rm -rf $(OBJ_PATH)
-	make -C $(LIBFT_PATH) clean
-	make -C $(MLX_PATH) clean
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIBFT_PATH) fclean
-	
-re: fclean all
+	@rm -rf $(NAME)
 
-.PHONY: all re clean fclean bonus
+re: clean all
+
+.PHONY: all, clean, fclean, re, libmlx

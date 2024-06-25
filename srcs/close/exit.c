@@ -3,27 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daraz <daraz@student.42prague.com>         +#+  +:+       +#+        */
+/*   By: ohosnedl <ohosnedl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:55:30 by daraz             #+#    #+#             */
-/*   Updated: 2024/05/18 13:00:29 by daraz            ###   ########.fr       */
+/*   Updated: 2024/06/06 18:44:35 by ohosnedl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	close_exit(t_game *game, int code)
 {
 	if (!game)
 		exit(code);
-	if (game->win && game->mlx)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		mlx_loop_end(game->mlx);
-		free(game->mlx);
-	}
 	free_game(game);
 	exit(code);
 }
